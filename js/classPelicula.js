@@ -102,6 +102,21 @@ export default class Pelicula {
     set reparto(reparto) {
       this.#reparto = reparto;
     }
+    //este metodo lo agregamos para q JSON.stringify pueda transformar las propiedades privadas a formato JSON
+    toJSON(){
+        return {
+            codigo: this.codigo,
+            titulo: this.titulo,
+            descripcion: this.descripcion,
+            imagen: this.imagen,
+            anio: this.anio,
+            genero: this.genero,
+            duracion: this.duracion,
+            pais: this.pais,
+            director: this.director,
+            reparto: this.reparto
+        }
+    }
   }
 
 let prueba = 'dato para exportar'
