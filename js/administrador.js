@@ -5,8 +5,7 @@ formularioAdminPelicula.addEventListener('submit', prepararFormulario);
 
 function prepararFormulario(e){
     e.preventDefault();
-    console.log('aqui creo la peli')
-
+    console.log('aqui creo la peli');
     const pelicula1 = new Pelicula(
         "El Padrino",
         "Una película sobre una familia mafiosa italiana en Nueva York.",
@@ -18,6 +17,5 @@ function prepararFormulario(e){
         "Francis Ford Coppola",
         ["Marlon Brando", "Al Pacino", "James Caan"]
       );
-      
       console.log(pelicula1); // "El Padrino"
 }
