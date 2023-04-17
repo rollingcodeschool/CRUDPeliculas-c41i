@@ -10,7 +10,7 @@ btnThemeDark.addEventListener('click', ()=> cambiarTema('dark'));
 btnThemeLight.addEventListener('click', ()=> cambiarTema('light'));
 
 function cambiarTema(color){
-    document.querySelector('body').setAttribute('data-bs-theme', color);
+    document.querySelector('html').setAttribute('data-bs-theme', color);
     //guardar en localstorage
     localStorage.setItem('tema', JSON.stringify(color));
     //actualizar el icono
