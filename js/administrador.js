@@ -24,7 +24,7 @@ function prepararFormulario(e) {
 
 function crearPelicula() {
   //validar los datos del formulario
-  let resumen = sumarioValidacion(titulo.value, descripcion.value, duracion.value);
+  let resumen = sumarioValidacion(titulo.value, descripcion.value, duracion.value, imagen.value);
   if (resumen.length === 0) {
     // los datos son validos
     //cree el objeto

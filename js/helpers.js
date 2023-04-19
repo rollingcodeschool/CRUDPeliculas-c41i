@@ -21,9 +21,20 @@ function validarDuracion(tiempo){
         return false
     }
 }
+function validarURLImagen(imagen){
+    let patron = /^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)$/;
+    if(patron.test(imagen)){
+        console.log('la expresion regular de la imagen funciona');
+        return true
+    }else{
+        console.log('la expresion regular de la imagen fallo');
+        return false
+    }
+}
 
 
-export function sumarioValidacion(titulo, descripcion, duracion){
+
+export function sumarioValidacion(titulo, descripcion, duracion, imagen){
     let resumen= '';
     if(!validarCantidadCaracteres(titulo,2,100)){
         resumen += 'El titulo debe tener entre 2 y 100 caracteres <br>'
@@ -33,6 +44,9 @@ export function sumarioValidacion(titulo, descripcion, duracion){
     }
     if(!validarDuracion(duracion)){
         resumen += 'La duracion de la pelicula debe ser minutos (entre 2 y 3 caracteres numericos) <br>'
+    }
+    if(!validarURLImagen(imagen)){
+        resumen += 'La imagen de la pelicula debe ser una URL valida terminada en (.jpg, .png o .gif) <br>'
     }
     return resumen;
 }
