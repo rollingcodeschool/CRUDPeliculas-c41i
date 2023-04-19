@@ -251,7 +251,7 @@
                   placeholder="Ej: 2023"
                   maxlength="4"
                   minlength="4"
-                  required
+                 
                 />
               </div>
               <div class="mb-3">
@@ -281,6 +281,20 @@
                 />
               </div>
               <div class="mb-3">
+                <label for="director"
+                  >Director
+                  ></label
+                >
+                <input
+                  id="director"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: Francis Ford Coppola"
+                  maxlength="200"
+                  minlength="2"
+                />
+              </div>
+              <div class="mb-3">
                 <label for="reparto"
                   >Reparto<small class="text-secondary">
                     (cada actor separado por , )</small
@@ -299,7 +313,8 @@
                 class="alert alert-danger mt-3 d-none"
                 role="alert"
                 id="alerta"
-              ></div>
+              >
+            </div>
               <button class="btn btn-primary" type="submit" id="btnFormulario">
                 Enviar
               </button>
