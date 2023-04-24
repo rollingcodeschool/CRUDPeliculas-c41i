@@ -1,8 +1,29 @@
 import Pelicula from "./classPelicula.js";
 import { sumarioValidacion } from "./helpers.js";
 
+//variables globales
+let listaPeliculas = JSON.parse(localStorage.getItem("listaPeliculas")) || [];
+//saber si el array esta no vacio
+if (listaPeliculas.length !== 0) {
+  //quiero que sean objetos de tipo pelicula
+  listaPeliculas = listaPeliculas.map(
+    (pelicula) =>
+      new Pelicula(
+        pelicula.titulo,
+        pelicula.descripcion,
+        pelicula.imagen,
+        pelicula.genero,
+        pelicula.anio,
+        pelicula.duracion,
+        pelicula.pais,
+        pelicula.director,
+        pelicula.reparto
+      )
+  );
+}
+console.log(listaPeliculas);
+
 let formularioAdminPelicula = document.getElementById("formPelicula");
-let listaPeliculas = [];
 let codigo = document.getElementById("codigo"),
   titulo = document.getElementById("titulo"),
   descripcion = document.getElementById("descripcion"),
@@ -13,13 +34,50 @@ let codigo = document.getElementById("codigo"),
   duracion = document.getElementById("duracion"),
   pais = document.getElementById("pais"),
   director = document.getElementById("director");
-let modalFormPelicula = new bootstrap.Modal(document.getElementById('modalPelicula'));
-console.log(modalFormPelicula)
-let btnCrearPelicula = document.getElementById('btnCrearPelicula');
+let modalFormPelicula = new bootstrap.Modal(
+  document.getElementById("modalPelicula")
+);
+console.log(modalFormPelicula);
+let btnCrearPelicula = document.getElementById("btnCrearPelicula");
 
 //manejadores de eventos
 formularioAdminPelicula.addEventListener("submit", prepararFormulario);
-btnCrearPelicula.addEventListener('click', mostrarFormularioPelicula)
+btnCrearPelicula.addEventListener("click", mostrarFormularioPelicula);
+
+
+cargaInicial();
+
+function cargaInicial(){
+  if(listaPeliculas.length >0){
+    //dibujo una fila en la tabla
+    listaPeliculas.map((pelicula) => crearFila(pelicula))
+  }
+}
+
+function crearFila(pelicula){
+  let tbody = document.querySelector('#tablaPelicula');
+  tbody.innerHTML += `<tr>
+  <td scope="col">1</td>
+  <td>${pelicula.titulo}</td>
+  <td class="tamanioCelda text-truncate">
+    ${pelicula.descripcion}
+  </td>
+  <td class="tamanioCelda text-truncate">
+    ${pelicula.imagen}
+  </td>
+  <td>${pelicula.genero}</td>
+  <td>
+    <button class="btn btn-warning">
+      <i class="bi bi-pencil-square"></i>
+    </button>
+    <button class="btn btn-danger">
+      <i class="bi bi-x-square"></i>
+    </button>
+  </td>
+</tr>`
+
+}
+
 
 function prepararFormulario(e) {
   e.preventDefault();
@@ -69,10 +127,10 @@ function crearPelicula() {
   }
 }
 
-function limpiarFormulario(){
+function limpiarFormulario() {
   formularioAdminPelicula.reset();
 }
 
-function mostrarFormularioPelicula(){
+function mostrarFormularioPelicula() {
   modalFormPelicula.show();
 }
