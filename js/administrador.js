@@ -13,8 +13,13 @@ let codigo = document.getElementById("codigo"),
   duracion = document.getElementById("duracion"),
   pais = document.getElementById("pais"),
   director = document.getElementById("director");
+let modalFormPelicula = new bootstrap.Modal(document.getElementById('modalPelicula'));
+console.log(modalFormPelicula)
+let btnCrearPelicula = document.getElementById('btnCrearPelicula');
 
+//manejadores de eventos
 formularioAdminPelicula.addEventListener("submit", prepararFormulario);
+btnCrearPelicula.addEventListener('click', mostrarFormularioPelicula)
 
 function prepararFormulario(e) {
   e.preventDefault();
@@ -54,10 +59,20 @@ function crearPelicula() {
     //almacenar el array de pelis en localsotarge
     localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
     //cerrar el modal con el formulario
+    limpiarFormulario();
+    modalFormPelicula.hide();
   } else {
     // mostrar al usuario el cartel de error
     let alerta = document.getElementById("alerta");
     alerta.innerHTML = resumen;
     alerta.className = "alert alert-danger mt-3";
   }
+}
+
+function limpiarFormulario(){
+  formularioAdminPelicula.reset();
+}
+
+function mostrarFormularioPelicula(){
+  modalFormPelicula.show();
 }

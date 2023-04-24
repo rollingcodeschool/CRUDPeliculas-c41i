@@ -32,6 +32,7 @@ function validarURLImagen(imagen) {
 }
 
 function validarAnio(anio) {
+    // ^(19[8-9][7-9]|20[0-1][0-9]|202[0-4])$
   const anioMinimo = 1987;
   const anioMaximo = new Date().getFullYear();
   if(anio>= anioMinimo && anio <= (anioMaximo + 1)){
@@ -49,7 +50,7 @@ export function sumarioValidacion(titulo, descripcion, duracion, imagen, anio) {
   if (!validarCantidadCaracteres(descripcion, 5, 500)) {
     resumen += "La descripcion debe tener entre 5 y 500 caracteres <br>";
   }
-  if (!validarDuracion(duracion)) {
+  if (duracion.length >0 && !validarDuracion(duracion)) {
     resumen +=
       "La duracion de la pelicula debe ser minutos (entre 2 y 3 caracteres numericos) <br>";
   }
