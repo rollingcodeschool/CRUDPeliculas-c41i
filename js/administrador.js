@@ -50,14 +50,14 @@ cargaInicial();
 function cargaInicial(){
   if(listaPeliculas.length >0){
     //dibujo una fila en la tabla
-    listaPeliculas.map((pelicula) => crearFila(pelicula))
+    listaPeliculas.map((pelicula, indice) => crearFila(pelicula, indice +1))
   }
 }
 
-function crearFila(pelicula){
+function crearFila(pelicula, indice){
   let tbody = document.querySelector('#tablaPelicula');
   tbody.innerHTML += `<tr>
-  <td scope="col">1</td>
+  <td scope="col">${indice}</td>
   <td>${pelicula.titulo}</td>
   <td class="tamanioCelda text-truncate">
     ${pelicula.descripcion}
@@ -118,6 +118,8 @@ function crearPelicula() {
     localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
     //cerrar el modal con el formulario
     limpiarFormulario();
+    //dibujar la fila nueva en la tabla
+    crearFila(peliculaNueva, listaPeliculas.length);
     modalFormPelicula.hide();
   } else {
     // mostrar al usuario el cartel de error
