@@ -9,6 +9,7 @@ if (listaPeliculas.length !== 0) {
   listaPeliculas = listaPeliculas.map(
     (pelicula) =>
       new Pelicula(
+        pelicula.codigo,
         pelicula.titulo,
         pelicula.descripcion,
         pelicula.imagen,
@@ -44,18 +45,17 @@ let btnCrearPelicula = document.getElementById("btnCrearPelicula");
 formularioAdminPelicula.addEventListener("submit", prepararFormulario);
 btnCrearPelicula.addEventListener("click", mostrarFormularioPelicula);
 
-
 cargaInicial();
 
-function cargaInicial(){
-  if(listaPeliculas.length >0){
+function cargaInicial() {
+  if (listaPeliculas.length > 0) {
     //dibujo una fila en la tabla
-    listaPeliculas.map((pelicula, indice) => crearFila(pelicula, indice +1))
+    listaPeliculas.map((pelicula, indice) => crearFila(pelicula, indice + 1));
   }
 }
 
-function crearFila(pelicula, indice){
-  let tbody = document.querySelector('#tablaPelicula');
+function crearFila(pelicula, indice) {
+  let tbody = document.querySelector("#tablaPelicula");
   tbody.innerHTML += `<tr>
   <td scope="col">${indice}</td>
   <td>${pelicula.titulo}</td>
@@ -74,10 +74,8 @@ function crearFila(pelicula, indice){
       <i class="bi bi-x-square"></i>
     </button>
   </td>
-</tr>`
-
+</tr>`;
 }
-
 
 function prepararFormulario(e) {
   e.preventDefault();
@@ -100,6 +98,7 @@ function crearPelicula() {
     // los datos son validos
     //cree el objeto
     const peliculaNueva = new Pelicula(
+      undefined,
       titulo.value,
       descripcion.value,
       imagen.value,
@@ -115,7 +114,7 @@ function crearPelicula() {
     listaPeliculas.push(peliculaNueva);
     console.log(listaPeliculas);
     //almacenar el array de pelis en localsotarge
-    localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
+    guardarEnLocalstorage();
     //cerrar el modal con el formulario
     limpiarFormulario();
     //dibujar la fila nueva en la tabla
@@ -129,6 +128,10 @@ function crearPelicula() {
   }
 }
 
+function guardarEnLocalstorage() {
+  localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
+}
+
 function limpiarFormulario() {
   formularioAdminPelicula.reset();
 }
@@ -137,7 +140,32 @@ function mostrarFormularioPelicula() {
   modalFormPelicula.show();
 }
 
-window.borrarPelicula = (codigo)=>{
-  console.log('aqui quiero borrar una peli')
-  console.log(codigo)
-}
+window.borrarPelicula = (codigo) => {
+  Swal.fire({
+    title: "¿Esta seguro de eliminar la pelicula?",
+    text: "No se puede revertir este proceso",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Borrar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    console.log(result);
+    if (result.isConfirmed) {
+      //agrega mi codigo de borrar
+      //borrar la pelicula del array
+      let posicionPeli = listaPeliculas.findIndex(
+        (pelicula) => pelicula.codigo === codigo
+      );
+      listaPeliculas.splice(posicionPeli, 1);
+      //actualizar el localstorage
+      guardarEnLocalstorage();
+      //borrar la fila de la tabla
+      let tbody = document.querySelector("#tablaPelicula");
+      tbody.removeChild(tbody.children[posicionPeli]);
+      //todo: actualizar el numero de  las filas de la tabla
+      Swal.fire("Pelicula eliminada", "La pelicula seleccionada fue eliminada correctamente", "success");
+    }
+  });
+};
