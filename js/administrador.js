@@ -70,7 +70,7 @@ function crearFila(pelicula, indice){
     <button class="btn btn-warning">
       <i class="bi bi-pencil-square"></i>
     </button>
-    <button class="btn btn-danger">
+    <button class="btn btn-danger" onclick="borrarPelicula('${pelicula.codigo}')">
       <i class="bi bi-x-square"></i>
     </button>
   </td>
@@ -135,4 +135,9 @@ function limpiarFormulario() {
 
 function mostrarFormularioPelicula() {
   modalFormPelicula.show();
+}
+
+window.borrarPelicula = (codigo)=>{
+  console.log('aqui quiero borrar una peli')
+  console.log(codigo)
 }
