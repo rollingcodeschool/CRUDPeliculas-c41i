@@ -149,7 +149,7 @@ window.borrarPelicula = (codigo) => {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Borrar",
-    cancelButtonText: "Cancelar",
+    cancelButtonText: "Cancelar"
   }).then((result) => {
     console.log(result);
     if (result.isConfirmed) {
