@@ -40,6 +40,7 @@ let modalFormPelicula = new bootstrap.Modal(
 );
 console.log(modalFormPelicula);
 let btnCrearPelicula = document.getElementById("btnCrearPelicula");
+let crearPeliculaNueva = true; //crearPeliculaNueva =true tengo que crear una peli, cuando sea false tengo que editar.
 
 //manejadores de eventos
 formularioAdminPelicula.addEventListener("submit", prepararFormulario);
@@ -80,7 +81,11 @@ function crearFila(pelicula, indice) {
 function prepararFormulario(e) {
   e.preventDefault();
   console.log("aqui creo la peli");
-  crearPelicula();
+  if(crearPeliculaNueva){
+    crearPelicula();
+  }else{
+    editarPelicula();
+  }
 }
 
 function crearPelicula() {
@@ -184,4 +189,33 @@ window.prepararPelicula = (codigoPelicula)=>{
   genero.value = peliculaBuscada.genero;
   reparto.value = peliculaBuscada.reparto;
   director.value = peliculaBuscada.director;
+  //3- cambiar el estado de la variable crearPeliculaNueva a false
+  crearPeliculaNueva= false;
+}
+
+function editarPelicula(){
+  console.log('aqui quiero editar')
+  //1- en que posicion esta almancenada la peli que quiero editar
+  let posicionPelicula = listaPeliculas.findIndex((pelicula)=> pelicula.codigo === codigo.value);
+  console.log(posicionPelicula);
+  //todo: chequear que todos los datos del formulario sean validos
+  //2- editar los datos de la pelicula seleccionada
+listaPeliculas[posicionPelicula].titulo = titulo.value;
+listaPeliculas[posicionPelicula].descripcion = descripcion.value;
+listaPeliculas[posicionPelicula].imagen = imagen.value;
+listaPeliculas[posicionPelicula].pais = pais.value;
+listaPeliculas[posicionPelicula].reparto = reparto.value;
+listaPeliculas[posicionPelicula].genero = genero.value;
+listaPeliculas[posicionPelicula].director = director.value;
+listaPeliculas[posicionPelicula].duracion = duracion.value;
+listaPeliculas[posicionPelicula].anio = anio.value;
+  //3 - actualizar el localstorage
+  guardarEnLocalstorage();
+  //4- actualizar la fila de la tabla
+  let tbody = document.querySelector("#tablaPelicula");
+  console.log(tbody.children[posicionPelicula].children[1]);
+  tbody.children[posicionPelicula].children[1].innerHTML = titulo.value;
+  tbody.children[posicionPelicula].children[2].innerHTML = descripcion.value;
+  tbody.children[posicionPelicula].children[3].innerHTML = imagen.value;
+  tbody.children[posicionPelicula].children[4].innerHTML = genero.value;
 }
