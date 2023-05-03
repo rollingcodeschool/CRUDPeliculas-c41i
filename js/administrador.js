@@ -67,7 +67,7 @@ function crearFila(pelicula, indice) {
   </td>
   <td>${pelicula.genero}</td>
   <td>
-    <button class="btn btn-warning">
+    <button class="btn btn-warning" onclick="prepararPelicula('${pelicula.codigo}')" >
       <i class="bi bi-pencil-square"></i>
     </button>
     <button class="btn btn-danger" onclick="borrarPelicula('${pelicula.codigo}')">
@@ -169,3 +169,19 @@ window.borrarPelicula = (codigo) => {
     }
   });
 };
+
+window.prepararPelicula = (codigoPelicula)=>{
+  //1- buscar el objeto que quiero mostrar en el form
+    let peliculaBuscada = listaPeliculas.find((pelicula)=> pelicula.codigo === codigoPelicula);
+    console.log(peliculaBuscada);
+  //2- mostrar el formulario con los datos
+  modalFormPelicula.show();
+  codigo.value = peliculaBuscada.codigo;
+  titulo.value = peliculaBuscada.titulo;
+  imagen.value = peliculaBuscada.imagen;
+  descripcion.value = peliculaBuscada.descripcion;
+  pais.value = peliculaBuscada.pais;
+  genero.value = peliculaBuscada.genero;
+  reparto.value = peliculaBuscada.reparto;
+  director.value = peliculaBuscada.director;
+}
