@@ -142,6 +142,8 @@ function limpiarFormulario() {
 }
 
 function mostrarFormularioPelicula() {
+  crearPeliculaNueva= true;
+  limpiarFormulario();
   modalFormPelicula.show();
 }
 
@@ -214,8 +216,15 @@ listaPeliculas[posicionPelicula].anio = anio.value;
   //4- actualizar la fila de la tabla
   let tbody = document.querySelector("#tablaPelicula");
   console.log(tbody.children[posicionPelicula].children[1]);
+  // let celdaTitulo = tbody.children[posicionPelicula].children[1];
   tbody.children[posicionPelicula].children[1].innerHTML = titulo.value;
   tbody.children[posicionPelicula].children[2].innerHTML = descripcion.value;
   tbody.children[posicionPelicula].children[3].innerHTML = imagen.value;
   tbody.children[posicionPelicula].children[4].innerHTML = genero.value;
+  //5- limpiar el formulario
+  limpiarFormulario();
+  //6- cerrar modal
+  modalFormPelicula.hide();
+  //7- mostrar un cartel
+  Swal.fire("Pelicula modificada", "La pelicula seleccionada fue modificada exitosamente", "success");
 }
