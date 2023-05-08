@@ -16,10 +16,18 @@ function crearColumna(pelicula) {
         <h5 class="card-title">${pelicula.titulo}</h5>
       </div>
       <div class='card-footer'>
-      <a class="btn btn-primary" href='../pages/detalle.html'>ver detalle</a>
+      <button class="btn btn-primary" onclick="navegarDetallePelicula('${pelicula.codigo}')">ver detalle</button>
       </div>
     </div>
   </aside>
     `;
+}
+
+function navegarDetallePelicula(codigo){
+  console.log(codigo);
+  console.log(window.location);
+  // nombre de dominio
+  console.log(window.location.origin + '/pages/detalle.html');
+
 }
 
